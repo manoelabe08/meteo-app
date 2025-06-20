@@ -35,16 +35,7 @@ jobs:
         # Cette action vérifie la structure du projet React (par exemple, dépendances, fichiers).
         # Pas de paramètres spécifiques nécessaires pour cette version alpha.
 
-      # Étape 5 : Configurer Appbase.io (optionnel, si utilisé)
-      - name: ReactiveSearch Pipelines
-        uses: appbaseio/pipelines-action@0.1.3
-        with:
-          url: ${{ secrets.APPBASE_URL }} # URL de ton cluster Appbase.io (à configurer dans les secrets GitHub)
-          pipeline_id: ${{ github.repository }} # Par défaut, utilise le nom du dépôt (par exemple, username/meteo-app)
-          file: ./pipeline.yaml # Chemin vers le fichier de configuration du pipeline (crée-le si nécessaire)
-          depends: [] # Liste vide si aucune dépendance externe n'est requise
-        # Note : Si tu n'utilises pas Appbase.io, commente ou supprime cette étape.
-
+     
       # Étape 6 : Configurer React
       - name: Setup React
         uses: kirkeaton/setup-react@v1.0.0
