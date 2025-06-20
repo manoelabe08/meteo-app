@@ -1,32 +1,76 @@
-            - name: React Project Checker
-  # You may pin to the exact commit or the version.
-  # uses: VictorDanilov/react-project-checker-action@3c1454ece249b31da81f04d29f2e5e6dba549d99
-  uses: VictorDanilov/react-project-checker-action@v0.0.1-alpha
+name: CI Pipeline for Meteo App
 
-                      - name: ReactiveSearch Pipelines
-  # You may pin to the exact commit or the version.
-  # uses: appbaseio/pipelines-action@02a03926291768f184fa085b973759d18fb540b2
-  uses: appbaseio/pipelines-action@0.1.3
-  with:
-    # URL to connect to Appbase.io cluster
-    url: 
-    # Pipeline ID for the current pipeline
-    pipeline_id: # optional, default is ${{github.repository}}
-    # Pipeline file to be used to create the pipeline
-    file: # default is ./pipeline.yaml
-    # Pipeline files dependencies, this should be an array of strings
-    depends: # optional, default is {}
-                      - name: Setup React
-  # You may pin to the exact commit or the version.
-  # uses: kirkeaton/setup-react@9e28853f52cc70c0835e44fd2e934a892b0d8c61
-  uses: kirkeaton/setup-react@v1.0.0
-  with:
-    # The React version to install.
-    react-version: 
-    # The React DOM version to install.
-    react-dom-version: 
-    # The React types version to install.
-    react-types-version: # optional
-    # The React DOM types version to install.
-    react-dom-types-version: # optional
-          
+# Déclenche le workflow sur les push et pull requests vers la branche main
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest # Utilise une machine Ubuntu pour exécuter le job
+
+    steps:
+      # Étape 1 : Cloner le dépôt
+      - name: Checkout code
+        uses: actions/checkout@v4
+        # Cette action clone ton dépôt GitHub pour accéder aux fichiers
+
+      # Étape 2 : Configurer Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Version de Node.js compatible avec create-react-app
+          cache: 'npm' # Met en cache les dépendances npm pour accélérer les builds
+
+      # Étape 3 : Installer les dépendances
+      - name: Install dependencies
+        run: npm install
+        # Installe toutes les dépendances listées dans package.json
+
+      # Étape 4 : Vérifier le projet React
+      - name: React Project Checker
+        uses: VictorDanilov/react-project-checker-action@v0.0.1-alpha
+        # Cette action vérifie la structure du projet React (par exemple, dépendances, fichiers).
+        # Pas de paramètres spécifiques nécessaires pour cette version alpha.
+
+      # Étape 5 : Configurer Appbase.io (optionnel, si utilisé)
+      - name: ReactiveSearch Pipelines
+        uses: appbaseio/pipelines-action@0.1.3
+        with:
+          url: ${{ secrets.APPBASE_URL }} # URL de ton cluster Appbase.io (à configurer dans les secrets GitHub)
+          pipeline_id: ${{ github.repository }} # Par défaut, utilise le nom du dépôt (par exemple, username/meteo-app)
+          file: ./pipeline.yaml # Chemin vers le fichier de configuration du pipeline (crée-le si nécessaire)
+          depends: [] # Liste vide si aucune dépendance externe n'est requise
+        # Note : Si tu n'utilises pas Appbase.io, commente ou supprime cette étape.
+
+      # Étape 6 : Configurer React
+      - name: Setup React
+        uses: kirkeaton/setup-react@v1.0.0
+        with:
+          react-version: '18.2.0' # Version de react (vérifie package.json pour la version exacte)
+          react-dom-version: '18.2.0' # Version de react-dom
+          react-types-version: '18.2.14' # Version de @types/react (optionnel, pour TypeScript)
+          react-dom-types-version: '18.2.14' # Version de @types/react-dom (optionnel, pour TypeScript)
+
+      # Étape 7 : Exécuter les tests
+      - name: Run tests
+        run: npm test -- --passWithNoTests
+        # Ajoute --passWithNoTests pour éviter l'erreur "No tests found" si aucun test n'existe
+
+      # Étape 8 : Construire le projet
+      - name: Build project
+        run: npm run build
+        # Construit l'application React (génère le dossier build/)
+
+      # Étape 9 : Déployer sur Vercel
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Jeton Vercel (à configurer dans les secrets GitHub)
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} # ID de l'organisation Vercel
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} # ID du projet Vercel
+          github-token: ${{ secrets.GITHUB_TOKEN }} # Token GitHub pour les commentaires sur les PR
+          scope: ${{ secrets.VERCEL_ORG_ID }} # Scope de l'organisation Vercel
+          working-directory: ./ # Répertoire de travail (racine du projet)
