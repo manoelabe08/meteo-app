@@ -30,8 +30,10 @@ jobs:
         # Installe toutes les dépendances listées dans package.json
 
       # Étape 4 : Vérifier le projet React
-     # - name: React Project Checker
-      #  uses: VictorDanilov/react-project-checker-action@v0.0.1-alpha
+      - name: React Project Checker
+        uses: VictorDanilov/react-project-checker-action@v0.0.1-alpha
+        env:
+          DEBUG: true # Active les logs de débogage (si supporté)
         # Cette action vérifie la structure du projet React (par exemple, dépendances, fichiers).
         # Pas de paramètres spécifiques nécessaires pour cette version alpha.
 
