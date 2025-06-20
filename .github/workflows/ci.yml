@@ -31,9 +31,15 @@ jobs:
 
       # Étape 4 : Vérifier le projet React
       - name: React Project Checker
-        uses: VictorDanilov/react-project-checker-action@v0.0.1-alpha
-        env:
-          DEBUG: true # Active les logs de débogage (si supporté)
+        run: |
+        test -f package.json || { echo "package.json manquant"; exit 1; }
+          test -f package-lock.json || { echo "package-lock.json manquant"; exit 1; }
+          test -f src/index.js || { echo "src/index.js manquant"; exit 1; }
+          test -f public/index.html || { echo "public/index.html manquant"; exit 1; }
+          grep '"react"' package.json || { echo "react manquant dans package.json"; exit 1; }
+          grep '"react-dom"' package.json || { echo "react-dom manquant dans package.json"; exit 1; }
+          grep '"react-scripts"' package.json || { echo "react-scripts manquant dans package.json"; exit 1; }
+
         # Cette action vérifie la structure du projet React (par exemple, dépendances, fichiers).
         # Pas de paramètres spécifiques nécessaires pour cette version alpha.
 
