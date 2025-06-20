@@ -1,58 +1,32 @@
-name: CI/CD React App
+            - name: React Project Checker
+  # You may pin to the exact commit or the version.
+  # uses: VictorDanilov/react-project-checker-action@3c1454ece249b31da81f04d29f2e5e6dba549d99
+  uses: VictorDanilov/react-project-checker-action@v0.0.1-alpha
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-jobs:
-  test:
-    name: 🧪 Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: 📦 Install dependencies
-        run: npm install
-
-      - name: 🧪 Run unit tests
-        run: npm test --if-present
-
-  build:
-    name: 🛠️ Build
-    runs-on: ubuntu-latest
-    needs: test
-
-    steps:
-      - name: 📥 Checkout code
-        uses: actions/checkout@v4
-
-      - name: 🟢 Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: 📦 Install dependencies
-        run: npm install
-
-      - name: 🧱 Build app
-        run: npm run build
-
-  deploy:
-    name: 🚀 Deploy
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: 🧳 Checkout code
-        uses: actions/checkout@v4
-
-      
+                      - name: ReactiveSearch Pipelines
+  # You may pin to the exact commit or the version.
+  # uses: appbaseio/pipelines-action@02a03926291768f184fa085b973759d18fb540b2
+  uses: appbaseio/pipelines-action@0.1.3
+  with:
+    # URL to connect to Appbase.io cluster
+    url: 
+    # Pipeline ID for the current pipeline
+    pipeline_id: # optional, default is ${{github.repository}}
+    # Pipeline file to be used to create the pipeline
+    file: # default is ./pipeline.yaml
+    # Pipeline files dependencies, this should be an array of strings
+    depends: # optional, default is {}
+                      - name: Setup React
+  # You may pin to the exact commit or the version.
+  # uses: kirkeaton/setup-react@9e28853f52cc70c0835e44fd2e934a892b0d8c61
+  uses: kirkeaton/setup-react@v1.0.0
+  with:
+    # The React version to install.
+    react-version: 
+    # The React DOM version to install.
+    react-dom-version: 
+    # The React types version to install.
+    react-types-version: # optional
+    # The React DOM types version to install.
+    react-dom-types-version: # optional
+          
