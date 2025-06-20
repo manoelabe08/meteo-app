@@ -63,13 +63,18 @@ jobs:
         run: npm run build
         # Construit l'application React (génère le dossier build/)
 
-      # Étape 9 : Déployer sur Vercel
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
+# Étape 9 : Déployer sur la VM via SSH
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Jeton Vercel (à configurer dans les secrets GitHub)
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }} # ID de l'organisation Vercel
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }} # ID du projet Vercel
-          github-token: ${{ secrets.GITHUB_TOKEN }} # Token GitHub pour les commentaires sur les PR
-          scope: ${{ secrets.VERCEL_ORG_ID }} # Scope de l'organisation Vercel
-          working-directory: ./ # Répertoire de travail (racine du projet)
+          host: 192.168.245.130
+          username: anonymous
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            # Naviguer vers le répertoire du projet
+            cd ~/Documents/react-app
+            # Arrêter tout processus utilisant le port 8080
+            fuser -k 8080/tcp || true
+            # Lancer vercel dev en arrière-plan
+            nohup vercel dev --listen 0.0.0.0:8080 &
