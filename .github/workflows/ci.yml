@@ -43,10 +43,10 @@ jobs:
       - name: Déploiement sur serveur distant
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER }}
+          host: http://192.168.245.130/
+          username: anonymous
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          port: 22
           script: |
             cd ~/Documents/meteo-app
             fuser -k 8080/tcp || true
