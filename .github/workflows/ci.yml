@@ -63,8 +63,7 @@ jobs:
         run: npm run build
         # Construit l'application React (génère le dossier build/)
 
-script: |
-  echo "Connexion établie avec succès"
+
 
 
 # Étape 9 : Déployer sur la VM via SSH
