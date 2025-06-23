@@ -67,17 +67,30 @@ jobs:
 
 
 # Étape 9 : Déployer sur la VM via SSH
-      - name: Deploy to VM
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: 192.168.245.130
-          username: anonymous
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 22
-          script: |
-            # Naviguer vers le répertoire du projet
-            cd ~/Documents/react-app
-            # Arrêter tout processus utilisant le port 8080
-            fuser -k 8080/tcp || true
-            # Lancer vercel dev en arrière-plan
-            nohup vercel dev --listen 0.0.0.0:8080 &
+      name: Déploiement sur serveur distant
+
+on:
+  push:
+    branches:
+      - main  # change si tu utilises une autre branche (ex: master)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v3
+
+    - name: Connexion SSH et déploiement
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: 192.168.245.130
+        username: anonymous
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd ~/Documents/react-app
+          fuser -k 8080/tcp || true
+          nohup vercel dev --listen 0.0.0.0:8080 &
+
