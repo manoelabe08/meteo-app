@@ -1,35 +1,29 @@
 name: CI Pipeline for Meteo App
 
-# Déclenche le workflow sur les push et pull requests vers la branche main
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest # Utilise une machine Ubuntu pour exécuter le job
-
+    runs-on: ubuntu-latest
     steps:
-      # Étape 1 : Cloner le dépôt
       - name: Checkout code
         uses: actions/checkout@v4
-        # Cette action clone ton dépôt GitHub pour accéder aux fichiers
 
-      # Étape 2 : Configurer Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Version de Node.js compatible avec create-react-app
-          cache: 'npm' # Met en cache les dépendances npm pour accélérer les builds
+          node-version: '20'
+          cache: 'npm'
 
-      # Étape 3 : Installer les dépendances
       - name: Install dependencies
         run: npm install
-        # Installe toutes les dépendances listées dans package.json
 
-      # Étape 4 : Vérifier le projet React
       - name: React Project Checker
         run: |
           test -f package.json || { echo "package.json manquant"; exit 1; }
@@ -40,57 +34,20 @@ jobs:
           grep '"react-dom"' package.json || { echo "react-dom manquant dans package.json"; exit 1; }
           grep '"react-scripts"' package.json || { echo "react-scripts manquant dans package.json"; exit 1; }
 
-        # Cette action vérifie la structure du projet React (par exemple, dépendances, fichiers).
-        # Pas de paramètres spécifiques nécessaires pour cette version alpha.
-
-     
-      # Étape 6 : Configurer React
-      - name: Setup React
-        uses: kirkeaton/setup-react@v1.0.0
-        with:
-          react-version: '18.2.0' # Version de react (vérifie package.json pour la version exacte)
-          react-dom-version: '18.2.0' # Version de react-dom
-          react-types-version: '18.2.14' # Version de @types/react (optionnel, pour TypeScript)
-          react-dom-types-version: '18.2.14' # Version de @types/react-dom (optionnel, pour TypeScript)
-
-      # Étape 7 : Exécuter les tests
       - name: Run tests
         run: npm test -- --passWithNoTests
-        # Ajoute --passWithNoTests pour éviter l'erreur "No tests found" si aucun test n'existe
 
-      # Étape 8 : Construire le projet
       - name: Build project
         run: npm run build
-        # Construit l'application React (génère le dossier build/)
 
-
-
-
-# Étape 9 : Déployer sur la VM via SSH
-      name: Déploiement sur serveur distant
-
-on:
-  push:
-    branches:
-      - main  # change si tu utilises une autre branche (ex: master)
-       debug: true
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout du code
-      uses: actions/checkout@v3
-
-    - name: Connexion SSH et déploiement
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: 192.168.245.130
-        username: manoelabe08
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: 22
-        script: |
-          cd ~/Documents/react-app
-          fuser -k 8080/tcp || true
-          nohup vercel dev --listen 0.0.0.0:8080 &
-
+      - name: Déploiement sur serveur distant
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 192.168.245.130
+          username: manoelabe08
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            cd ~/Documents/react-app
+            fuser -k 8080/tcp || true
+            nohup vercel dev --listen 0.0.0.0:8080 &
