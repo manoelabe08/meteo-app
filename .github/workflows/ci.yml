@@ -44,7 +44,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: 192.168.245.130
-          username: manoelabe08
+          username: anonymous
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 22
           script: |
