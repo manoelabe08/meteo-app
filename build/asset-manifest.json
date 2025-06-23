@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/meteo-app/static/js/main.6ddcd7ba.js",
+    "index.html": "/meteo-app/index.html",
+    "main.6ddcd7ba.js.map": "/meteo-app/static/js/main.6ddcd7ba.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.6ddcd7ba.js"
+  ]
+}
