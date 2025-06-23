@@ -73,7 +73,7 @@ on:
   push:
     branches:
       - main  # change si tu utilises une autre branche (ex: master)
-
+       debug: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
