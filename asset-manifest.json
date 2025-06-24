@@ -1,13 +1,22 @@
 {
   "files": {
-    "main.css": "/meteo-app/static/css/main.80d703bc.css",
-    "main.js": "/meteo-app/static/js/main.a8dd6859.js",
-    "index.html": "/meteo-app/index.html",
-    "main.80d703bc.css.map": "/meteo-app/static/css/main.80d703bc.css.map",
-    "main.a8dd6859.js.map": "/meteo-app/static/js/main.a8dd6859.js.map"
+    "main.css": "/horloge-app/static/css/main.c331a296.chunk.css",
+    "main.js": "/horloge-app/static/js/main.09b97fc6.chunk.js",
+    "main.js.map": "/horloge-app/static/js/main.09b97fc6.chunk.js.map",
+    "runtime-main.js": "/horloge-app/static/js/runtime-main.cd16739e.js",
+    "runtime-main.js.map": "/horloge-app/static/js/runtime-main.cd16739e.js.map",
+    "static/js/2.5e80d84f.chunk.js": "/horloge-app/static/js/2.5e80d84f.chunk.js",
+    "static/js/2.5e80d84f.chunk.js.map": "/horloge-app/static/js/2.5e80d84f.chunk.js.map",
+    "index.html": "/horloge-app/index.html",
+    "precache-manifest.fd1397071961747a6b3b6a4e94925122.js": "/horloge-app/precache-manifest.fd1397071961747a6b3b6a4e94925122.js",
+    "service-worker.js": "/horloge-app/service-worker.js",
+    "static/css/main.c331a296.chunk.css.map": "/horloge-app/static/css/main.c331a296.chunk.css.map",
+    "static/js/2.5e80d84f.chunk.js.LICENSE.txt": "/horloge-app/static/js/2.5e80d84f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/css/main.80d703bc.css",
-    "static/js/main.a8dd6859.js"
+    "static/js/runtime-main.cd16739e.js",
+    "static/js/2.5e80d84f.chunk.js",
+    "static/css/main.c331a296.chunk.css",
+    "static/js/main.09b97fc6.chunk.js"
   ]
 }
