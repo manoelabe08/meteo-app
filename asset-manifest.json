@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/horloge-app/static/css/main.c331a296.chunk.css",
-    "main.js": "/horloge-app/static/js/main.09b97fc6.chunk.js",
-    "main.js.map": "/horloge-app/static/js/main.09b97fc6.chunk.js.map",
-    "runtime-main.js": "/horloge-app/static/js/runtime-main.cd16739e.js",
-    "runtime-main.js.map": "/horloge-app/static/js/runtime-main.cd16739e.js.map",
-    "static/js/2.5e80d84f.chunk.js": "/horloge-app/static/js/2.5e80d84f.chunk.js",
-    "static/js/2.5e80d84f.chunk.js.map": "/horloge-app/static/js/2.5e80d84f.chunk.js.map",
-    "index.html": "/horloge-app/index.html",
-    "precache-manifest.fd1397071961747a6b3b6a4e94925122.js": "/horloge-app/precache-manifest.fd1397071961747a6b3b6a4e94925122.js",
-    "service-worker.js": "/horloge-app/service-worker.js",
-    "static/css/main.c331a296.chunk.css.map": "/horloge-app/static/css/main.c331a296.chunk.css.map",
-    "static/js/2.5e80d84f.chunk.js.LICENSE.txt": "/horloge-app/static/js/2.5e80d84f.chunk.js.LICENSE.txt"
+    "main.css": "/meteo-app/static/css/main.c331a296.chunk.css",
+    "main.js": "/meteo-app/static/js/main.f8d481ef.chunk.js",
+    "main.js.map": "/meteo-app/static/js/main.f8d481ef.chunk.js.map",
+    "runtime-main.js": "/meteo-app/static/js/runtime-main.6ffef6cc.js",
+    "runtime-main.js.map": "/meteo-app/static/js/runtime-main.6ffef6cc.js.map",
+    "static/js/2.5e80d84f.chunk.js": "/meteo-app/static/js/2.5e80d84f.chunk.js",
+    "static/js/2.5e80d84f.chunk.js.map": "/meteo-app/static/js/2.5e80d84f.chunk.js.map",
+    "index.html": "/meteo-app/index.html",
+    "precache-manifest.6ef8901d6ccef6cfb83956de74944c2a.js": "/meteo-app/precache-manifest.6ef8901d6ccef6cfb83956de74944c2a.js",
+    "service-worker.js": "/meteo-app/service-worker.js",
+    "static/css/main.c331a296.chunk.css.map": "/meteo-app/static/css/main.c331a296.chunk.css.map",
+    "static/js/2.5e80d84f.chunk.js.LICENSE.txt": "/meteo-app/static/js/2.5e80d84f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.cd16739e.js",
+    "static/js/runtime-main.6ffef6cc.js",
     "static/js/2.5e80d84f.chunk.js",
     "static/css/main.c331a296.chunk.css",
-    "static/js/main.09b97fc6.chunk.js"
+    "static/js/main.f8d481ef.chunk.js"
   ]
 }
